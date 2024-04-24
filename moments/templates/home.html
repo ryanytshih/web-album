@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner">
+    {% for photo in photos %}
+    <div class="carousel-item{% if forloop.first %} active{% endif %}">
+      <img src="{{ photo.image.url }}" class="d-block w-100" alt="...">
+      <div class="carousel-caption">
+        <h5>{{ photo.title }}</h5>
+        <p><i class="fas fa-map-marker-alt" aria-hidden="true"></i> {{ photo.place }}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+<div class="container mt-3">
+  <div class="d-flex justify-content-between">
+    <div class="p2">
+      <h5>目前相簿裡總共有 {{ photo_num }} 張照片</h5>
+    </div>
+    <div class="p2">
+      <a class="btn btn-primary" href="{% url 'timeline' %}" role="button">前往相簿 <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+  </div>
+</div>
+
+<style>
+  .carousel-item img {
+    object-fit: cover;
+    object-position: center; /* Center the image within the element */
+    width: 100%;
+    max-height: 350px;
+    margin-bottom: 1rem;
+  }
+</style>
+{% endblock content %}

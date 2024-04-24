@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load static %}
+<link rel="stylesheet" type='text/css' href="{% static 'timeline/timeline.css' %}">
+
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+
+<div class="d-flex justify-content-center align-items-center">
+  <div class="p-2">
+    <lottie-player src="https://lottie.host/d39cae43-92db-4fb5-9dab-c7ea6618a320/CL0E1TTmWw.json" background="#fff" speed="1" style="width: 300px; height: 300px" direction="1" mode="normal" loop autoplay></lottie-player>
+  </div>
+</div>
+
+<div class="d-flex justify-content-center text-end">
+  <div class="p-2">
+    <h1>相簿</h1>
+    <a class="btn btn-primary" href="{% url 'upload' %}" role="button">上傳照片</a>
+  </div>
+</div>
+
+<section style="background-color: #;">
+  <div class="container py-5">
+    <div class="main-timeline-2">
+      {% for photo in photos %}
+      <div class="timeline-2 {% if forloop.counter|divisibleby:2 %}right-2{% else %}left-2{% endif %} animate__animated animate__fadeInLeft">
+          <div class="card">
+            <img src="{{ photo.image.url }}" class="card-img-top"
+              alt="Responsive image">
+            <div class="card-body p-4">
+              <h4 class="fw-bold mb-4">{{ photo.title }}</h4>
+              <p class="text-muted mb-4"><i class="fas fa-clock" aria-hidden="true"></i> {{ photo.time }}<br>
+                  <i class="fas fa-map-marker-alt" aria-hidden="true"></i> {{ photo.place }}</p>
+              <p class="mb-2">{{ photo.description }}</p>
+              <div class="btn-group btn-group-sm" role="group" aria-label="buttons">
+                <a href="{% url 'update' photo.id %}" class="btn btn-outline-primary">編輯</a>
+                <a href="{% url 'delete' photo.id %}" class="btn btn-outline-danger">刪除</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+      {% comment %} <div class="timeline-2 left-2">
+        <div class="card">
+          <img src="https://picsum.photos/200" class="card-img-top"
+            alt="Responsive image">
+          <div class="card-body p-4">
+            <h4 class="fw-bold mb-4">Ut enim ad minim veniam</h4>
+            <p class="text-muted mb-4"><i class="far fa-clock" aria-hidden="true"></i> 2017</p>
+            <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+              ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          </div>
+        </div>
+      </div>
+      <div class="timeline-2 right-2">
+        <div class="card">
+          <img src="https://picsum.photos/200" class="card-img-top"
+            alt="Responsive image">
+          <div class="card-body p-4">
+            <h4 class="fw-bold mb-4">Duis aute irure dolor</h4>
+            <p class="text-muted mb-4"><i class="far fa-clock" aria-hidden="true"></i> 2016</p>
+            <p class="mb-0">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
+              doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
+              architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
+              aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem
+              sequi nesciunt.</p>
+          </div>
+        </div> {% endcomment %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<a id="back-to-top" href="#" class="btn btn-light btn-lg back-to-top" role="button"><i class="fas fa-chevron-up"></i></a>
+
+<script>
+  $(document).ready(function(){
+    $(window).scroll(function () {
+        if ($(this).scrollTop() > 50) {
+          $('#back-to-top').fadeIn();
+        } else {
+          $('#back-to-top').fadeOut();
+        }
+      });
+      // scroll body to 0px on click
+      $('#back-to-top').click(function () {
+        $('body,html').animate({
+          scrollTop: 0
+        }, 400);
+        return false;
+      });
+  });
+</script>
+
+<style>
+  .back-to-top {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    display: none;
+  }
+</style>
+
+{% comment %} <ul>
+    {% for photo in photos %}
+    <li>
+        <p>{{ photo.time }} {{ photo.title }}</p>
+        <p>{{ photo.description }}</p>
+        <img src="{{ photo.image.url }}"/>
+    </li>
+    {% endfor %}
+</ul> {% endcomment %}
+{% endblock content %}

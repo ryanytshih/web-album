@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+
+<form action="{% url 'upload' %}" enctype="multipart/form-data" method="POST">
+    {% csrf_token %}
+    <fieldset enabled>
+      <legend>上傳照片到相簿</legend>
+      
+      <div class="mb-3">
+        <label for="formFile" class="form-label">{{ form.image.label }}</label>
+        {{ form.image }}
+        
+        {% comment %} <input class="form-control" type="file" id="formFile"> {% endcomment %}
+      </div>
+      <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">{{ form.title.label }}</label>
+        {{ form.title }}
+        {% comment %} <input type="text" class="form-control" id="formTitle"> {% endcomment %}
+      </div>
+      <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">{{ form.description.label }}</label>
+        {{ form.description }}
+        {% comment %} <textarea class="form-control" id="formDescription" rows="3"></textarea> {% endcomment %}
+      </div>
+      
+
+      <div class="mb-3" id="htmlTarget">
+        <label for="datetimepicker1Input" class="form-label">{{ form.time.label }}</label>
+        <div
+          class="input-group log-event"
+          id="datetimepicker1"
+          data-td-target-input="nearest"
+          data-td-target-toggle="nearest"
+        >
+          {{ form.time }}
+          {% comment %} <input
+            id="datetimepicker1Input"
+            type="text"
+            class="form-control"
+            data-td-target="#datetimepicker1"
+          /> {% endcomment %}
+          <span
+            class="input-group-text"
+            data-td-target="#datetimepicker1"
+            data-td-toggle="datetimepicker"
+          >
+            <i class="fas fa-calendar"></i>
+          </span>
+        </div>
+        
+      </div>
+      {{ form.time.errors }}
+      <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">{{ form.place.label }}</label>
+        {{ form.place }}
+        {% comment %} <input type="text" class="form-control" id="formPlace"> {% endcomment %}
+      </div>
+
+      <button type="submit" class="btn btn-primary">上傳</button>
+      <a href="{% url 'timeline' %}" class="btn btn-primary">取消並返回</a>
+      
+    </fieldset>
+  </form>
+{% endblock content %}

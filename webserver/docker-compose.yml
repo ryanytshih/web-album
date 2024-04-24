@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  nginx:
+    build: "."
+    container_name: "nginx"
+    restart: "always"
+    ports:
+      - 80:80
+    volumes:
+      - "./conf.d:/etc/nginx/conf.d"
+      - "../moments:/var/www/moments"
+  
+  django:
+    build: "../moments"
+    container_name: "django"
+    restart: "always"
+    volumes:
+      - "../moments:/usr/src/app"

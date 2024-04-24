@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form action="" enctype="multipart/form-data" method="POST">
+    {% csrf_token %}
+    <fieldset enabled>
+      <legend>編輯相簿中的照片</legend>
+
+      <div class="mb-3">
+        <p>目前照片</p>
+        <img src="{{ photo.image.url }}" class="img-fluid"
+                alt="Responsive image">
+      </div>
+
+      <div class="mb-3">
+        <label for="formFile" class="form-label">{{ form.image.label }}</label>
+        
+        {{ form.image }}
+        
+      </div>
+
+      <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">{{ form.title.label }}</label>
+        {{ form.title }}
+      </div>
+
+      <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">{{ form.description.label }}</label>
+        {{ form.description }}
+      </div>
+      
+      <div class="mb-3" id="htmlTarget">
+        <label for="datetimepicker1Input" class="form-label">{{ form.time.label }}</label>
+        <div
+          class="input-group log-event"
+          id="datetimepicker1"
+          data-td-target-input="nearest"
+          data-td-target-toggle="nearest"
+        >
+          {{ form.time }}
+          <span
+            class="input-group-text"
+            data-td-target="#datetimepicker1"
+            data-td-toggle="datetimepicker"
+          >
+            <i class="fas fa-calendar"></i>
+          </span>
+        </div>
+        
+      </div>
+
+      <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">{{ form.place.label }}</label>
+        {{ form.place }}
+      </div>
+
+      <button type="submit" class="btn btn-primary">更新</button>
+      <a href="{% url 'timeline' %}" class="btn btn-primary">取消並返回</a>
+
+    </fieldset>
+  </form>
+{% endblock content %}
